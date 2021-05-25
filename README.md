@@ -9,6 +9,7 @@ Download and install the following packages:
 - Git (https://git-scm.com/downloads)
 - Terraform (https://www.terraform.io/downloads.html)
 - Python (https://www.python.org/downloads/release/python-382/)
+- AWS CLI (https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html)
 
 ## Start Development
 
@@ -45,3 +46,27 @@ $ ./start_and_stop.sh stop
 ---
 
 ## TEST 2 - Terraform And Python
+
+### Running
+
+```bash
+# Change directory to arca-infras folder
+$ cd arca-infras
+
+# Configure AWS by executing below command and give the required details
+$ aws configure
+
+# Change AWS_KEY in main.tf
+key_name = "AWS_KEY"
+
+# To initiate terraform
+$ terraform init
+
+# To provision resources
+$ terraform apply
+
+```
+
+## TEST 2B - Terraform And Python
+
+### Requirements

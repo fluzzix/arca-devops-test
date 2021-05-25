@@ -86,14 +86,14 @@ resource "aws_route_table_association" "public-subnet" {
 }
 
 
-resource "aws_instance" "ec2" {
+resource "aws_instance" "arca_server" {
     ami = "ami-03a115bbd6928e698"
     instance_type = "t2.micro"
-    key_name = "${aws_key_pair.generated_key.key_name}"
+    key_name = "AWS_KEY"
     vpc_security_group_ids = ["${aws_security_group.arca_networks_sg.id}"]
     subnet_id = "${aws_subnet.public.id}"
     tags = {
-        Name = "ec2_instance"
+        Name = "arca_server_instance"
     }
 }
 
