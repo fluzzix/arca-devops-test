@@ -19,7 +19,7 @@ then
     echo "Stopping all docker containers ..."
     stop
 else
-    echo -e "Bash script to start and stop docker container...\n"
+    echo -e "Bash script to start or stop docker container...\n"
     echo -e "Usage: $0 [start or stop]\n"
 fi
 
