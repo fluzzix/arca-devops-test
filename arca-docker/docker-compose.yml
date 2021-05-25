@@ -1,0 +1,48 @@
+version: "3"
+services:
+  #Nginx Service
+  web_server:
+    image: nginx:1.12
+    container_name: web_server
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    volumes:
+      - ./config/nginx.conf.prod:/etc/nginx/conf.d/nginx.conf
+    networks:
+      - arca-network
+
+  #MySQL Service
+  db:
+    image: mysql:8.0.23
+    container_name: db
+    restart: unless-stopped
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_USER: arca
+      MYSQL_PASSWORD: wazobia
+      MYSQL_ROOT_PASSWORD: wazobia
+    volumes:
+      - dbdata:/var/lib/mysql/
+    networks:
+      - arca-network
+
+  # Kibana Service
+  kibana:
+    image: docker.elastic.co/kibana/kibana:6.4.2
+    container_name: kibana
+    ports:
+      - "5601:5601"
+    networks:
+      - arca-network
+
+#Docker Networks
+networks:
+  arca-network:
+    driver: bridge
+
+#Volumes
+volumes:
+  dbdata:
+    driver: local

@@ -1,0 +1,11 @@
+server {
+	listen          80 default_server;
+    server_name     nginx;
+
+	location / {
+        proxy_set_header X-Request-Id $request_id;
+        proxy_set_header Host $host;
+        default_type application/json;
+    	return 200 '{"code":"1", "message": "Hello Nginx"}';
+    }
+}
