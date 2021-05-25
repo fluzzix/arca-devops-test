@@ -45,7 +45,7 @@ $ ./start_and_stop.sh stop
 
 ---
 
-## TEST 2 - Terraform And Python
+## TEST 2 - Terraform With Python For Infrastructure Automation
 
 ### Running
 
@@ -70,7 +70,7 @@ $ terraform destroy
 
 ```
 
-## TEST 2B - Terraform And Python
+## TEST 2B - Terraform With Python For Infrastructure Automation
 
 ### Requirements
 

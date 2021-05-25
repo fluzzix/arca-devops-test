@@ -16,7 +16,7 @@ then
     start
 elif [[ $1 == "stop" ]]
 then
-    echo "Stopping all docker containers ..."
+    echo "Stopping all docker containers..."
     stop
 else
     echo -e "Bash script to start or stop docker container...\n"

@@ -16,8 +16,8 @@ resource "aws_default_vpc" "default" {
 # create security group
 resource "aws_security_group" "arca_networks_sg" {
     name = "arca_networks_sg"
-    description = "This firewall allows SSH and HTTP"
-    vpc_id = "${aws_default_vpc.arca_networks_vpc.id}"
+    description = "This firewall allows SSH, HTTP and HTTPS"
+    vpc_id = "${aws_default_vpc.default.id}"
  
     ingress {
         description = "SSH"
@@ -32,6 +32,15 @@ resource "aws_security_group" "arca_networks_sg" {
         from_port = 80
         to_port = 80
         protocol = "tcp"
+        cidr_blocks = ["0.0.0.0/0"]
+    }
+
+
+    ingress {
+        description = "HTTPS"
+        from_port   = 443
+        to_port     = 443
+        protocol    = "tcp"
         cidr_blocks = ["0.0.0.0/0"]
     }
  
@@ -49,33 +58,33 @@ resource "aws_security_group" "arca_networks_sg" {
 
 # Create public subnet
 resource "aws_subnet" "public" {
-    vpc_id = "${aws_default_vpc.arca_networks_vpc.id}"
-    cidr_block = "192.168.0.0/24"
+    vpc_id = "${aws_default_vpc.default.id}"
+    cidr_block = "192.168.0.0/16"
     availability_zone = "us-east-1a"
     map_public_ip_on_launch = "true"
     tags = {
-        Name = "arca_networks_pub_sub"
+        Name = "arca_networks_public_subnet"
     } 
 }
 
 
 # To establish communication between vpc and the internet
-resource "aws_internet_gateway" "arca_network_gateway" {
-    vpc_id = "${aws_default_vpc.arca_networks_vpc.id}"
+resource "aws_internet_gateway" "arca_networks_IG" {
+    vpc_id = "${aws_default_vpc.default.id}"
     tags = { 
-        Name = "arca_network_gateway"
+        Name = "arca_networks_internet_gateway"
     }
 }
 
 # Create a route table allowing access to the IGW.
 resource "aws_route_table" "arca_networks_rt_table" {
-    vpc_id = "${aws_default_vpc.arca_networks_vpc.id}"
+    vpc_id = "${aws_default_vpc.default.id}"
     route {
         cidr_block = "0.0.0.0/0"
-        gateway_id = "${aws_internet_gateway.arca_networks_gateway.id}"
+        gateway_id = "${aws_internet_gateway.arca_networks_IG.id}"
     }
     tags = {
-        Name = "arca_networks_rt_table"
+        Name = "arca_networks_route_table"
     }
 }
 
@@ -87,7 +96,7 @@ resource "aws_route_table_association" "public-subnet" {
 
 
 resource "aws_instance" "arca_server" {
-    ami = "ami-03a115bbd6928e698"
+    ami = "ami-0b69ea66ff7391e80"
     instance_type = "t2.micro"
     key_name = "AWS_KEY"
     vpc_security_group_ids = ["${aws_security_group.arca_networks_sg.id}"]
