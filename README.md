@@ -65,8 +65,44 @@ $ terraform init
 # To provision resources
 $ terraform apply
 
+# To destroy your infrastructure
+$ terraform destroy
+
 ```
 
 ## TEST 2B - Terraform And Python
 
 ### Requirements
+
+```bash
+# Install two additional modules
+$ pip install boto3 botocore
+
+# or
+
+$ pip3 install boto3 botocore
+
+```
+
+### EC2 Instance ID
+
+```bash
+# Enter your EC2 ID in a file with the name instance_id.txt and save this file in your Users/home folder:
+
+/Users/[username]/instance_id.txt // Windows
+/Users/[username]/instance_id.txt // macOS
+/home/[username]/instance_id.txt // Linux
+
+```
+
+### Running
+
+Start the EC2 instance with Python 3:
+
+```bash
+# Start EC2 instance
+python3 start_stop_server.py -u
+
+# Stop EC2 instance
+python3 start_stop_server.py -d
+```
