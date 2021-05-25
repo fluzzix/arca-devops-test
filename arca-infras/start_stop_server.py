@@ -48,7 +48,7 @@ def parse_arguments():
     parser.add_argument('-d', '--down',
                         help="Stop the EC2 instance", action='store_true')
     parser.add_argument(
-        '-s', '--show', help="Python script to start and stop provisioned server with the instance id", action='store_true')
+        '-s', '--show', help="Script info", action='store_true')
     args = parser.parse_args()
     return args
 
@@ -64,7 +64,7 @@ def evaluate(args):
         stop_ec2()
     elif args.show:
         print()
-        print('Python script to start and stop provisioned server')
+        print('Python script to start or stop provisioned server')
     else:
         print("Missing argument! Type '-h' for available arguments.")
 
